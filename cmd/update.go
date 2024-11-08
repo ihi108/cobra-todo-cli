@@ -4,15 +4,15 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"time"
-	"os"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
+	"time"
 
-	"github.com/spf13/cobra"
 	appDefs "github.com/ihi108/cobra-todo-cli/types"
 	utils "github.com/ihi108/cobra-todo-cli/utils"
+	"github.com/spf13/cobra"
 )
 
 // updateCmd represents the update command
