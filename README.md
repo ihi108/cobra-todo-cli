@@ -1,5 +1,5 @@
 # Task-Tracker aka Todo-cli
-A project used to track and manage tasks. A simple command line interface (CLI) program built with Go and Cobra
+A project used to track and manage tasks. A simple command line interface (CLI) program built with Go and Cobra. Project Inspiration: [Task-Tracker](https://roadmap.sh/projects/task-tracker)
 
 ## Requirements
 The application should run from the command line, accept user actions and inputs as arguments and store the tasks in a JSON file. The user should be able to :
@@ -12,11 +12,13 @@ The application should run from the command line, accept user actions and inputs
 
 ## Usage
 ### Clone
+With SSh
 ```bash
-    // With SSh
     git clone git@github.com:ihi108/cobra-todo-cli.git
+```
 
-    // With Http
+With Http
+```bash
     git clone https://github.com/ihi108/cobra-todo-cli.git
 ```
 
@@ -34,24 +36,24 @@ The application should run from the command line, accept user actions and inputs
 The list of commands and their usage is given below
 ```sh
 # Adding a new task
-task-cli add "Buy groceries"
+todo-cli add "Buy groceries"
 # Output: Task added successfully (ID: 1)
 
 # Updating and deleting tasks
-task-cli update 1 "Buy groceries and cook dinner"
-task-cli delete 1
+todo-cli update 1 "Buy groceries and cook dinner"
+todo-cli delete 1
 
 # Marking a task as in progress or done
-task-cli mark-in-progress 1
-task-cli mark-done 1
+todo-cli mark-in-progress 1
+todo-cli mark-done 1
 
 # Listing all tasks
-task-cli list
+todo-cli list
 
 # Listing tasks by status
-task-cli list done
-task-cli list todo
-task-cli list in-progress
+todo-cli list done
+todo-cli list todo
+todo-cli list in-progress
 ```
 
 ## Task Properties
