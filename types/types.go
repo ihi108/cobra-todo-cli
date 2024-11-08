@@ -18,10 +18,10 @@ func (t Tasks) Output() {
 
 	if len(t) == 1 {
 		task = t[0]
-		fmt.Printf("Task %v, added successfully (ID: %v)\n", task.Description, task.Id)
+		fmt.Printf("Task: %v, added successfully (ID: %v)\n", task.Description, task.Id)
 	} else {
 		for _, task = range t {
-			fmt.Printf("Task %v, added successfully (ID: %v)\n", task.Description, task.Id)
+			fmt.Printf("Task: %v, added successfully (ID: %v)\n", task.Description, task.Id)
 		}
 	}
 }
