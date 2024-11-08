@@ -5,7 +5,12 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"strconv"
 
+	appDefs "github.com/ihi108/cobra-todo-cli/types"
+	utils "github.com/ihi108/cobra-todo-cli/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -18,7 +23,25 @@ var markInProgressCmd = &cobra.Command{
 	task-cli mark-in-progress 1
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("markInProgress called")
+		var tasks, newTasks appDefs.Tasks
+
+		if len(args) < 1 {
+			str := fmt.Sprintf("Usage:\n  todo-cli mark-in-progress [taskID]")
+			fmt.Println(str)
+			os.Exit(1)
+		}
+
+		bytes := utils.ReadFile(appDefs.JsonFile)
+		utils.UnmarshalJSON(bytes, &tasks)
+
+		id, err := strconv.Atoi(args[0])
+		if err != nil {
+			log.Fatal(err)
+		}
+		newTasks = utils.UpdateStatus(tasks, "in-progress", id)
+		bytes = utils.MarshalJSON(newTasks)
+		utils.WriteFile(appDefs.JsonFile, bytes)
+		fmt.Printf("Task with ID: %v, Marked as in-progress\n", id)
 	},
 }
 
