@@ -89,3 +89,21 @@ func UpdateStatus(tasks appDefs.Tasks, status string, id int) appDefs.Tasks {
 
 	return newTasks
 }
+
+// StatusList - list all the tasks depending on the provided status
+func StatusList(tasks appDefs.Tasks, status string) {
+	pattern := "[ID]:%v [Task]:%v [Status]:%v"
+	if status == "" {
+		for _, task := range tasks {
+			str := fmt.Sprintf(pattern, task.Id, task.Description, task.Status)
+			fmt.Println(str)
+		}
+	} else {
+		for _, task := range tasks {
+			if task.Status == status {
+				str := fmt.Sprintf(pattern, task.Id, task.Description, task.Status)
+				fmt.Println(str)
+			}
+		}
+	}
+}
