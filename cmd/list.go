@@ -40,36 +40,18 @@ Lists all tasks in-progress
 		bytes := utils.ReadFile(appDefs.JsonFile)
 		utils.UnmarshalJSON(bytes, &tasks)
 		if len(args) == 0 {
-			for _, task := range tasks {
-				str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
-				fmt.Println(str)
-			}
+			utils.StatusList(tasks, "")
 		} else {
 			status := args[0]
 			switch status {
 			case "todo":
-				for _, task := range tasks {
-					if task.Status == status {
-						str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
-						fmt.Println(str)
-					}
-				}
+				utils.StatusList(tasks, "todo")
 			case "done":
-				for _, task := range tasks {
-					if task.Status == status {
-						str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
-						fmt.Println(str)
-					}
-				}
+				utils.StatusList(tasks, "done")
 			case "in-progress":
-				for _, task := range tasks {
-					if task.Status == status {
-						str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
-						fmt.Println(str)
-					}
-				}
+				utils.StatusList(tasks, "in-progress")
 			default:
-				str := fmt.Sprintf("Usage:\n  todo-cli list\n  todo-cli list [done | todo | in-progress]")
+				str := "Usage:\n  todo-cli list\n  todo-cli list [done | todo | in-progress]"
 				fmt.Println(str)
 				os.Exit(1)
 			}
