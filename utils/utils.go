@@ -3,6 +3,7 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -62,4 +63,29 @@ func UnmarshalJSON(bytes []byte, tasks *appDefs.Tasks) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+// UpdateStatus - updates the status of a task as done or in-progress
+func UpdateStatus(tasks appDefs.Tasks, status string, id int) appDefs.Tasks {
+	var found bool
+	var newTasks appDefs.Tasks
+
+	newTasks = make(appDefs.Tasks, 0)
+
+	found = false
+	for _, task := range tasks {
+		if task.Id == id {
+			found = true
+			task.Status = status
+		}
+		newTasks = append(newTasks, task)
+	}
+
+	if found == false {
+		str := fmt.Sprintf("Task with ID: %v, Not Found", id)
+		fmt.Println(str)
+		os.Exit(1)
+	}
+
+	return newTasks
 }
