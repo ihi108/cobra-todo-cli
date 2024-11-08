@@ -1,7 +1,7 @@
-## Task-Tracker
+# Task-Tracker aka Todo-cli
 A project used to track and manage tasks. A simple command line interface (CLI) program built with Go and Cobra
 
-### Requirements
+## Requirements
 The application should run from the command line, accept user actions and inputs as arguments and store the tasks in a JSON file. The user should be able to :
 - Add, Update and Delete tasks
 - Mark a task as in progress or done
@@ -10,7 +10,27 @@ The application should run from the command line, accept user actions and inputs
 - List all tasks that are not done
 - List all tasks that are in progress
 
-### Example
+## Usage
+### Clone
+```bash
+    // With SSh
+    git clone git@github.com:ihi108/cobra-todo-cli.git
+
+    // With Http
+    git clone https://github.com/ihi108/cobra-todo-cli.git
+```
+
+### Use
+```bash
+    // Run the build.sh
+    ./build.sh
+
+    // Use the app
+    ./todo-cli add "Read up on LVMs"
+    ./todo-cli list
+```
+
+## Example
 The list of commands and their usage is given below
 ```sh
 # Adding a new task
@@ -34,7 +54,7 @@ task-cli list todo
 task-cli list in-progress
 ```
 
-### Task Properties
+## Task Properties
 Each task should have the following properties:
 
 - id: A unique identifier for the task
