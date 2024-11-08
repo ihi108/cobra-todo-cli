@@ -5,7 +5,12 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"strconv"
 
+	appDefs "github.com/ihi108/cobra-todo-cli/types"
+	utils "github.com/ihi108/cobra-todo-cli/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -19,7 +24,41 @@ var deleteCmd = &cobra.Command{
 
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("delete called")
+		var tasks appDefs.Tasks
+		var newTasks appDefs.Tasks
+		var found bool
+
+		if len(args) < 1 {
+			str := fmt.Sprintf("Usage:\n  todo-cli delete [taskID]")
+			fmt.Println(str)
+			os.Exit(1)
+		}
+
+		id, err := strconv.Atoi(args[0])
+		if err != nil {
+			log.Fatal(err)
+		}
+		tasks = make(appDefs.Tasks, 0)
+		newTasks = make(appDefs.Tasks, 0)
+		bytes := utils.ReadFile(appDefs.JsonFile)
+		utils.UnmarshalJSON(bytes, &tasks)
+		found = false
+		for _, task := range tasks {
+			if task.Id == id {
+				found = true
+			} else {
+				newTasks = append(newTasks, task)
+			}
+		}
+
+		if found == false {
+			msg := fmt.Sprintf("Task with ID: %v, Not Found\n", id)
+			log.Fatal(msg)
+		}
+
+		bytes = utils.MarshalJSON(newTasks)
+		utils.WriteFile(appDefs.JsonFile, bytes)
+		fmt.Printf("Task with ID: %v, deleted successfully\n", id)
 	},
 }
 
