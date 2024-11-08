@@ -24,7 +24,6 @@ var markDoneCmd = &cobra.Command{
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		var tasks, newTasks appDefs.Tasks
-		var found bool
 
 		if len(args) < 1 {
 			str := fmt.Sprintf("Usage:\n  todo-cli mark-done [taskID]")
@@ -39,24 +38,10 @@ var markDoneCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-		found = false
-		for _, task := range tasks {
-			if task.Id == id {
-				found = true
-				task.Status = "done"
-			}
-			newTasks = append(newTasks, task)
-		}
 
-		if found == false {
-			str := fmt.Sprintf("Task with ID: %v, Not Found", id)
-			fmt.Println(str)
-			os.Exit(1)
-		}
-
+		newTasks = utils.UpdateStatus(tasks, "done", id)
 		bytes = utils.MarshalJSON(newTasks)
 		utils.WriteFile(appDefs.JsonFile, bytes)
-
 		fmt.Printf("Task with ID: %v, Marked as done\n", id)
 
 	},
