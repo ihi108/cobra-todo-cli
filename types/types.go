@@ -1,7 +1,9 @@
 // specifies the data types needed for the application
 package types
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Task struct {
 	Id          int    `json:"id"`
@@ -13,6 +15,7 @@ type Task struct {
 
 type Tasks []Task
 
+// Output - prints an output confirming add task operation
 func (t Tasks) Output() {
 	var task Task
 
@@ -22,6 +25,16 @@ func (t Tasks) Output() {
 	} else {
 		for _, task = range t {
 			fmt.Printf("Task: %v, added successfully (ID: %v)\n", task.Description, task.Id)
+		}
+	}
+}
+
+func (t Tasks) UpdateOutput(id int) {
+
+	for _, task := range t {
+		if task.Id == id {
+			fmt.Printf("Task with ID: %v, updated successfully\n", id)
+			break
 		}
 	}
 }
