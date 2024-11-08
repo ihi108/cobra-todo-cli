@@ -4,6 +4,7 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"time"
 	"os"
 	"fmt"
 	"log"
@@ -51,6 +52,9 @@ var updateCmd = &cobra.Command{
 			if item.Id == idInt {
 				item.Description = task
 				found = true
+
+				timeStr := time.Now().Format(time.RFC3339)
+				item.UpdatedAt = timeStr
 			}
 			newTasks = append(newTasks, item)
 		}
