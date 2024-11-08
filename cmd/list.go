@@ -5,7 +5,10 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
+	appDefs "github.com/ihi108/cobra-todo-cli/types"
+	utils "github.com/ihi108/cobra-todo-cli/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -32,7 +35,45 @@ Lists all tasks to be done
 Lists all tasks in-progress
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("list called")
+		var tasks appDefs.Tasks
+
+		bytes := utils.ReadFile(appDefs.JsonFile)
+		utils.UnmarshalJSON(bytes, &tasks)
+		if len(args) == 0 {
+			for _, task := range tasks {
+				str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
+				fmt.Println(str)
+			}
+		} else {
+			status := args[0]
+			switch status {
+			case "todo":
+				for _, task := range tasks {
+					if task.Status == status {
+						str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
+						fmt.Println(str)
+					}
+				}
+			case "done":
+				for _, task := range tasks {
+					if task.Status == status {
+						str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
+						fmt.Println(str)
+					}
+				}
+			case "in-progress":
+				for _, task := range tasks {
+					if task.Status == status {
+						str := fmt.Sprintf("ID: %v, Task: %v, Status: %v", task.Id, task.Description, task.Status)
+						fmt.Println(str)
+					}
+				}
+			default:
+				str := fmt.Sprintf("Usage:\n  todo-cli list\n  todo-cli list [done | todo | in-progress]")
+				fmt.Println(str)
+				os.Exit(1)
+			}
+		}
 	},
 }
 
